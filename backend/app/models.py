@@ -74,3 +74,17 @@ class Answer(Base):
     user = relationship("Users",back_populates="answers")
     question = relationship("Question",back_populates="answers")
     
+class Comment(Base):
+    __tablename__ = "comments"
+
+    cid = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    userid = Column(UUID(as_uuid=True),ForeignKey("users.id",nullable=False))
+    qid = Column(UUID(as_uuid=True),ForeignKey("question.id",nullable=False))
+    aid = Column(UUID(as_uuid=True),ForeignKey("answersuestion.id",nullable=False))
+    message = Column(Text, nullable=False)
+    tags = Column(String)
+    created_at = Column(DateTime,default=datetime.utcnow)
+
+    user = relationship("Users",back_populates="answers")
+    question = relationship("Question",back_populates="answers")
+    answer = relationship("Answer")
