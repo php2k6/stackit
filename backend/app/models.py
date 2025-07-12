@@ -60,3 +60,17 @@ class Question(Base):
     answer = relationship("Answer",back_populates="question",cascade="all, delete")
     comments = relationship("Comment",back_populates="question",cascade="all, delete")
     tags = relationship("Tag",secondary=ques_tag,back_populates="questions")
+    
+class Answer(Base):
+    __tablename__ = "answers"
+
+    aid = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    userid = Column(UUID(as_uuid=True),ForeignKey("users.id",nullable=False))
+    qid = Column(UUID(as_uuid=True),ForeignKey("question.id",nullable=False))
+    content = Column(Text, nullable=False)
+    votes = Column(Integer, default=0)
+    created_at = Column(DateTime,default=datetime.utcnow)
+
+    user = relationship("Users",back_populates="answers")
+    question = relationship("Question",back_populates="answers")
+    
