@@ -14,7 +14,7 @@ class CommentUpdate(BaseModel):
 class CommentResponse(BaseModel):
     cid: UUID
     userid: UUID
-    username: str  # From user join
+    username: str 
     message: str
     aid: UUID
     created_at: datetime
