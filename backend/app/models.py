@@ -14,3 +14,15 @@ ques_tag = Table(
     Column("tag",String,primary_key=True)
 )
 
+
+class Users(Base):
+    __table__ = "users"
+    id = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    username = Column(String, nullable=False, unique=True)
+    password = Column(String, nullable=True)
+    email = Column(String , nullable=False,unique=True)
+    admin = Column(Boolean, default=False) # If admin then true
+    googlelogin = Column(Boolean,default=False)
+    created_at = Column(DateTime,default=datetime.utcnow)
+    
+    
