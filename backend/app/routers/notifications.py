@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Depends, status, Query
+from fastapi import APIRouter, HTTPException, Depends, status, Query, Body
 from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.models import Users, Notification
@@ -81,11 +81,13 @@ def get_notifications(
 
 @router.post("/read", status_code=200)
 def mark_notification_as_read(
-    notification_id: UUID,
+    notification_data: dict = Body(..., example={"notification_id": "uuid-here"}),
     current_user: Users = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Mark a specific notification as read."""
+    
+    notification_id = UUID(notification_data["notification_id"])
     
     # Find the notification
     notification = db.query(Notification).filter(

@@ -9,6 +9,7 @@ from app.schemas.answer_schema import (
     AnswerResponse,
     AnswerAccept
 )
+from app.services.notification_service import NotificationService
 from uuid import UUID
 
 router = APIRouter(
@@ -54,6 +55,14 @@ def create_answer(
     db.add(new_answer)
     db.commit()
     db.refresh(new_answer)
+    
+    # Send notification to question author (if not self-answering)
+    if question.userid != current_user.id:
+        notification_service = NotificationService(db)
+        notification_service.notify_question_answered(
+            question_id=answer.qid,
+            answerer_username=current_user.username
+        )
     
     return AnswerCreateResponse(aid=new_answer.aid)
 
