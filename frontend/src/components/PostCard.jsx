@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const PostCard = ({ id, title, tags, desc, totalAns }) => {
     return (
-        <Link to={`/post/${id}`} className="block">
+        <Link to={`/post/${id}`}  state={{ id, title, tags, desc, totalAns }} className="block">
             <Card className="w-full p-4 shadow-md hover:shadow-lg transition-shadow">
                 <div className="flex flex-row justify-between items-start gap-6">
                     {/* Left: Question Details */}
