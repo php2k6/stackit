@@ -1,9 +1,9 @@
 
 import React from 'react'
 import PostCard from '../components/PostCard'
-import { TextInput, Select } from 'flowbite-react';
+import { TextInput, Select,Button } from 'flowbite-react';
 import { useState, useMemo } from 'react';
-
+import { Link } from 'react-router-dom';
 // Dummy data
 const questions = [
     {
@@ -54,29 +54,45 @@ export default function Home() {
 
     // const [cards, setcards] = useState()
     var names = ["hello", "hi", "nice", "hello", "hi", "nice"]
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 2;
+
+    const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+    const paginatedPosts = useMemo(() => {
+        const start = (currentPage - 1) * postsPerPage;
+        return filteredPosts.slice(start, start + postsPerPage);
+    }, [filteredPosts, currentPage, postsPerPage]);
+
     return (
-        <>
-            {/*  */}
+        <main className='w-full min-h-screen bg-gray-100 p-6'>
             {/* Filter Bar */}
-            <div className="flex flex-col md:flex-row gap-4 mb-6 items-center">
-                {/* Search */}
+            <div className="flex md:flex-row justify-between items-center mb-6 gap-4 items-center">
+                <h1 className="text-3xl font-semibold mb-2">Welcome Back User</h1>
+                <Button as={Link} to="/ask" color="blue" className="w-full md:w-auto">Ask a Question</Button>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 items-center w-full md:w-auto">
                 <TextInput
                     placeholder="Search questions..."
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {
+                        setSearch(e.target.value);
+                        setCurrentPage(1);
+                    }}
                     className="w-full md:w-1/2"
                 />
-
-                {/* Tag Filter */}
-                <Select value={selectedTag} onChange={(e) => setSelectedTag(e.target.value)} className="w-full md:w-1/4">
+                <Select value={selectedTag} onChange={(e) => {
+                    setSelectedTag(e.target.value);
+                    setCurrentPage(1);
+                }} className="w-full md:w-1/4">
                     <option value="All">All Tags</option>
                     {uniqueTags.map((tag, i) => (
                         <option key={i} value={tag}>{tag}</option>
                     ))}
                 </Select>
-
-                {/* Sort */}
-                <Select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full md:w-1/4">
+                <Select value={sort} onChange={(e) => {
+                    setSort(e.target.value);
+                    setCurrentPage(1);
+                }} className="w-full md:w-1/4">
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
                 </Select>
@@ -84,7 +100,7 @@ export default function Home() {
             <section>
                 <h2 className='text-2xl font-bold my-2'>Latest Questions</h2>
                 <div className="flex flex-col gap-4">
-                    {questions.map((q) => (
+                    {paginatedPosts.map((q) => (
                         <PostCard
                             key={q.id}
                             id={q.id}
@@ -94,10 +110,28 @@ export default function Home() {
                             totalAns={q.totalAns}
                         />
                     ))}
-                    
+                </div>
+                {/* Pagination Controls */}
+                <div className="flex justify-center items-center gap-2 mt-6">
+                    <Button
+                        size="sm"
+                        disabled={currentPage === 1}
+                        onClick={() => setCurrentPage((p) => p - 1)}
+                    >
+                        Prev
+                    </Button>
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <Button
+                        size="sm"
+                        disabled={currentPage === totalPages}
+                        onClick={() => setCurrentPage((p) => p + 1)}
+                    >
+                        Next
+                    </Button>
                 </div>
             </section>
-
-        </>
+        </main>
     )
 }
