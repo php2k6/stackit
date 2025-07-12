@@ -1,7 +1,7 @@
 from app.database import Base
 from sqlalchemy import (Boolean,Column,String,DateTime,Integer,Enum,Table,Text,ForeignKey)
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import declarative_base,relationship
+from sqlalchemy.orm import relationship
 import uuid
 from datetime import datetime
 
@@ -58,7 +58,6 @@ class Question(Base):
 
     user = relationship("Users",back_populates="questions")
     answers = relationship("Answer",back_populates="question",cascade="all, delete")
-    comments = relationship("Comment",back_populates="question",cascade="all, delete")
     
 class Answer(Base):
     __tablename__ = "answers"
@@ -75,6 +74,7 @@ class Answer(Base):
 
     user = relationship("Users",back_populates="answers")
     question = relationship("Question",back_populates="answers")
+    comments = relationship("Comment",back_populates="answer",cascade="all, delete")
     
 class Comment(Base):
     __tablename__ = "comments"
@@ -86,7 +86,7 @@ class Comment(Base):
     created_at = Column(DateTime,default=datetime.utcnow)
 
     user = relationship("Users",back_populates="comments")
-    answer = relationship("Answer")
+    answer = relationship("Answer",back_populates="comments")
     
 class Votes(Base):
     __tablename__ = "votes"

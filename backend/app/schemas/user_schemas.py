@@ -20,9 +20,6 @@ class UserResponse(BaseModel):
     username: str
     email: EmailStr
     type: bool
-    googlelogin: bool
-    created: datetime
-    profile_path: Optional[str] = None
     
     class Config:
         from_attributes = True  # For SQLAlchemy models compatibility
