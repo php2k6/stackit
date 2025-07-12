@@ -1,0 +1,76 @@
+# -------- Python --------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.p~  # temp
+
+# Virtual environments
+.env
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# -------- Editor / IDE --------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -------- System / OS --------
+.DS_Store
+Thumbs.db
+
+# -------- FastAPI / Project --------
+.env            
+*.sqlite3       
+alembic/versions/__pycache__/
+instance/
+settings.json
+
+# -------- Alembic --------
+alembic.ini     # optional: keep if using env.py for settings
+alembic/versions/*.pyc
+
+# -------- Logs / Cache --------
+*.log
+*.tmp
+*.bak
+*.cache/
+.cache/
+coverage/
+
+# -------- GPT4Free (if used locally) --------
+gpt4free/__pycache__/
+gpt4free/dist/
+gpt4free/build/
+gpt4free/.pytest_cache/
+gpt4free/.mypy_cache/
+
+# -------- Testing --------
+.pytest_cache/
+.mypy_cache/
+.tox/
+.coverage
+htmlcov/
+
+# -------- Jupyter / Colab --------
+.ipynb_checkpoints/
+*.ipynb
+
+# -------- Packaging --------
+*.egg
+*.egg-info/
+dist/
+build/
+MANIFEST
+
+# -------- Lock / Dependency Files --------
+poetry.lock
+Pipfile.lock
+yarn.lock
+package-lock.json
