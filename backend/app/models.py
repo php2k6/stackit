@@ -25,4 +25,7 @@ class Users(Base):
     googlelogin = Column(Boolean,default=False)
     created_at = Column(DateTime,default=datetime.utcnow)
     
-    
+    questions = relationship("Question",back_populates="user")
+    answers = relationship("Answer",back_populates="user")
+    comments = relationship("Comment",back_populates="user")
+    notifications = relationship("Notification",back_populates="user")
