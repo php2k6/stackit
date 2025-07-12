@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 from datetime import datetime
 from enum import Enum
@@ -33,7 +33,7 @@ class NotificationMarkRead(BaseModel):
     is_read: bool = True
 
 class NotificationList(BaseModel):
-    notifications: list[NotificationResponse]
+    notifications: List[NotificationResponse]
     total: int
     unread_count: int
     page: int

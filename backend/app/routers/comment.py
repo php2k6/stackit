@@ -9,6 +9,7 @@ from app.schemas.comment_scheme import (
     CommentResponse,
     CommentList
 )
+from app.services.notification_service import NotificationService
 from uuid import UUID
 from typing import List
 
@@ -45,6 +46,14 @@ def create_comment(
     db.add(new_comment)
     db.commit()
     db.refresh(new_comment)
+    
+    # Send notification to answer author (if not self-commenting)
+    if answer.userid != current_user.id:
+        notification_service = NotificationService(db)
+        notification_service.notify_answer_commented(
+            answer_id=aid,
+            commenter_username=current_user.username
+        )
     
     return CommentCreateResponse(
         cid=new_comment.cid,
