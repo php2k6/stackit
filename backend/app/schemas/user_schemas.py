@@ -38,7 +38,7 @@ class UserProfileResponse(BaseModel):
     username: str
     profile_path: Optional[str]
     joined_since: datetime
-    type: str
+    type: bool
     questions: List[List[str]]  # [[qid, title], ...]
     answers: List[List[str]]    # [[aid, title], ...]
     comments: List[List[str]]   # [[cid, title], ...]
@@ -49,7 +49,7 @@ class UserPublicResponse(BaseModel):
     username: str
     profile_path: Optional[str]
     joined_since: datetime
-    type: str
+    type: bool
     questions: List[List[str]]  # [[qid, title], ...]
 
 # New schema for admin users list
@@ -57,7 +57,7 @@ class UserListItem(BaseModel):
     id: str
     username: str
     email: str
-    type: str
+    type: bool
     joined_since: datetime
     googlelogin: bool
 
