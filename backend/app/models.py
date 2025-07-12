@@ -88,3 +88,15 @@ class Comment(Base):
     user = relationship("Users",back_populates="answers")
     question = relationship("Question",back_populates="answers")
     answer = relationship("Answer")
+    
+class Votes(Base):
+    __tablename__ = "votes"
+    
+    vid = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    userid = Column(UUID(as_uuid=True),ForeignKey("users.id",nullable=False))
+    is_answer = Column(Boolean)
+    is_upvote = Column(Boolean,default=False)
+    id = Column(UUID(as_uuid=True),nullable=False)
+    
+    user = relationship("Users",back_populates="votes")
+    
