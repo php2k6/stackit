@@ -45,3 +45,18 @@ class Notification(Base):
     question = relationship("Question")
     answer = relationship("Answer")
     comment = relationship("Comment")
+    
+class Question(Base):
+    __tablename__ = "question"
+    
+    qid = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    userid = Column(UUID(as_uuid=True),ForeignKey("users.id",nullable=False))
+    title = Column(Text, nullable=False)
+    desc = Column(Text, nullable=False)
+    votes = Column(Integer, default=0)
+    created_at = Column(DateTime,default=datetime.utcnow)
+
+    user = relationship("Users",back_populates="questions")
+    answer = relationship("Answer",back_populates="question",cascade="all, delete")
+    comments = relationship("Comment",back_populates="question",cascade="all, delete")
+    tags = relationship("Tag",secondary=ques_tag,back_populates="questions")
