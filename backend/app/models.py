@@ -41,4 +41,7 @@ class Notification(Base):
     aid = Column(UUID(as_uuid=True),ForeignKey("answers,aid"),nullable=True)
     cid = Column(UUID(as_uuid=True),ForeignKey("comments.cid"),nullable=True)
 
-    
+    user = relationship("Users",back_populates="notifications")
+    question = relationship("Question")
+    answer = relationship("Answer")
+    comment = relationship("Comment")
