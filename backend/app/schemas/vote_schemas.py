@@ -4,9 +4,7 @@ from uuid import UUID
 from datetime import datetime
 
 class VoteCreate(BaseModel):
-    id: UUID  # Question ID or Answer ID
-    is_answer: bool
-    is_upvote: bool
+    is_upvote: bool  # True for upvote, False for downvote
 
 class VoteUpdate(BaseModel):
     is_upvote: bool
