@@ -1,28 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Breadcrumb,BreadcrumbItem , Badge, Card, Spinner } from "flowbite-react";
+import { Breadcrumb, BreadcrumbItem, Badge, Card, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
+import AnswerCard from "../components/AnswerCard";
+import { useLocation } from "react-router-dom";
+import LexicalEditor from "../components/LexicalEditor";
 
 const PostDetail = () => {
-  const { id } = useParams(); // 👈 get dynamic id from URL
+  const { id } = useParams();
+  const { state } = useLocation();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Simulate fetch (replace with real API call)
-  useEffect(() => {
-    setTimeout(() => {
-      // Example mock post
-      const mockPost = {
-        id,
-        title: "How to use useEffect with async function in React?",
-        tags: ["react", "hooks", "javascript"],
-        desc: "I'm trying to fetch data inside useEffect but getting unexpected behavior. How should I handle async calls properly?",
-      };
+  const handleEditorChange = (root, selection) => {
+    console.log("Editor content changed:", root.__cachedText);
+  };
 
-      setPost(mockPost);
+  // 👇 Don't use JSX in useEffect
+  useEffect(() => {
+    if (!state) return; // exit early if state is missing
+
+    const { title, tags, desc, totalAns } = state;
+
+    setTimeout(() => {
+      setPost({ id, title, tags, desc, totalAns });
       setLoading(false);
     }, 1000);
-  }, [id]);
+  }, [id, state]);
+
+  // 👇 Early return if no post data
+  if (!state) {
+    return (
+      <p className="text-center mt-10 text-gray-600">
+        No post data provided.
+      </p>
+    );
+  }
 
   if (loading) {
     return (
@@ -35,8 +48,8 @@ const PostDetail = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
       {/* Breadcrumb */}
-      
-      
+
+
       <Breadcrumb aria-label="breadcrumb">
         <BreadcrumbItem href="/">Home</BreadcrumbItem>
         <BreadcrumbItem href="/questions">Questions</BreadcrumbItem>
@@ -57,7 +70,24 @@ const PostDetail = () => {
 
         <p className="text-gray-700 leading-relaxed text-base">{post.desc}</p>
       </Card>
+      <section>
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Answers</h2>
+        {/* populate the AnswerCard component */}
+        <AnswerCard
+          title="Re: How to use useEffect with async function in React?"
+          content="<p>You can use an IIFE (Immediately Invoked Function Expression) inside useEffect to handle async calls.</p>"
+          votes={5}
+          comments={["Great answer!", "Thanks for the tip!"]}
+        />
+      </section>
+      <section>
+        <h2>Post Answers</h2>
+        <LexicalEditor  />
+
+
+      </section>
     </div>
+
   );
 };
 
