@@ -29,3 +29,16 @@ class Users(Base):
     answers = relationship("Answer",back_populates="user")
     comments = relationship("Comment",back_populates="user")
     notifications = relationship("Notification",back_populates="user")
+    
+class Notification(Base):
+    _tablename__ = "notification"
+    
+    nid = Column(UUID(as_uuid=True),primary_key=True,default=uuid.uuid4)
+    userid = Column(UUID(as_uuid=True),ForeignKey("users.id",nullable=False))
+    read = Column(Boolean,default=False)
+    content = Column(Text, nullable=False)
+    qid = Column(UUID(as_uuid=True),ForeignKey("question.qid"),nullable=True)
+    aid = Column(UUID(as_uuid=True),ForeignKey("answers,aid"),nullable=True)
+    cid = Column(UUID(as_uuid=True),ForeignKey("comments.cid"),nullable=True)
+
+    
