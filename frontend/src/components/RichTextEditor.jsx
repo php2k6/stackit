@@ -10,7 +10,7 @@ const RichTextEditor = ({ value, setValue }) => {
       ["bold", "italic", "underline"],
       [{ list: "ordered" }, { list: "bullet" }],
       [{ align: [] }],
-      ["clean"],
+      ['blockquote', 'code-block'],
     ],
   };
 
@@ -22,6 +22,7 @@ const RichTextEditor = ({ value, setValue }) => {
         modules={modules}
         theme="snow"
         placeholder="Write your answer here..."
+      
       />
     </div>
   );

@@ -9,6 +9,8 @@ import PostDetail from './pages/PostDetail'
 import { Routes, Route } from 'react-router-dom';
 import { Footer } from 'flowbite-react'
 import Login from './pages/Login'
+import NewQuestion from './pages/NewQuestion'
+import Questions from './pages/Questions'
 
 
 function App() {
@@ -23,7 +25,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/questions" element={<Questions />} />
+        {/* Add a route for the login page */}
         <Route path="/login" element={<Login />} />
+        <Route path="/ask" element={<NewQuestion />} />
+
         {/* dynamic routing when clicked on individual posts */}
         <Route path="/post/:id" element={<PostDetail />} />
       </Routes>

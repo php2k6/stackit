@@ -1,32 +1,43 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Button, Textarea } from "flowbite-react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-
-const AnswerCard = ({ title, content, votes, comments }) => {
+import Votes from "./Votes";
+import axios from "axios";
+import { useEffect } from "react";
+const AnswerCard = ({ content, votes,username }) => {
     const [vote, setVote] = useState(votes || 0);
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [commentText, setCommentText] = useState("");
+    const [comments, setComments] = useState([]); // Initialize with an empty array
 
     const handleVote = (type) => {
         setVote((prev) => prev + (type === "up" ? 1 : -1));
     };
+    // fetch comments from the server from comments/{answerId} endpoint
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const fetchComments = async () => {
+            try {
+                const response = await axios.get(`http://odoo.phpx.live/api/comments/${answerId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                setComments(response.data);
+            } catch (error) {
+                console.error("Error fetching comments:", error);
+            }
+        };
+        fetchComments();
+    }, [answerId]);
 
     return (
         <div className="flex gap-4 bg-white border p-4 rounded-lg shadow-sm">
-            {/* Left: Votes */}
-            <div className="flex flex-col items-center justify-start pt-2 text-gray-600">
-                <button onClick={() => handleVote("up")}>
-                    <FaArrowUp className="hover:text-green-600" />
-                </button>
-                <p className="font-semibold text-lg">{vote}</p>
-                <button onClick={() => handleVote("down")}>
-                    <FaArrowDown className="hover:text-red-600" />
-                </button>
-            </div>
 
-            {/* Right: Answer content */}
+            <Votes vote={vote} handleVote={handleVote} />
+            
             <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+                {/* <h3 className="text-lg font-semibold text-gray-800">{title}</h3> */}
                 <div
                     className="prose prose-sm prose-slate max-w-full mt-2"
                     dangerouslySetInnerHTML={{ __html: content }}
@@ -37,7 +48,7 @@ const AnswerCard = ({ title, content, votes, comments }) => {
                     <h4 className="text-sm font-medium text-gray-600 mb-1">Comments:</h4>
                     {comments.map((c, i) => (
                         <p key={i} className="text-sm text-gray-500 pl-2 mb-1">
-                            - {c}
+                            - {c.username}: {c.message}
                         </p>
                     ))}
                 </div>

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Card, Label, TextInput, Button } from "flowbite-react";
 import RichTextEditor from "../components/RichTextEditor";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewQuestion = () => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState(""); // Rich text content (HTML)
     const [tags, setTags] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,12 +16,30 @@ const NewQuestion = () => {
         const question = {
             title,
             desc,
-            tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
+            tags: "",
+            image_path: ""
         };
+
+
 
         console.log("Posting question:", question);
 
         // TODO: Send to backend via fetch/axios
+        const token = localStorage.getItem("token");
+        console.log(token);
+
+        axios.post("http://odoo.phpx.live/api/question/", question, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                console.log("Question posted successfully:", response.data);
+                navigate("/questions"); // Redirect to questions page
+            })
+            .catch((error) => {
+                console.error("Error posting question:", error);
+            });
     };
 
     return (

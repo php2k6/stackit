@@ -3,29 +3,83 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
-    const handleGoogleLogin = async (res) => {
+    // formdata
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+    });
+    const [Msg, setMsg] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+        console.log("Form Data: ", formData);
+
+    };
+    // handle submit using axios and jwt
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password, confirmPassword } = formData;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
         try {
-            const token = res.credential;
-
-            // (Optional) decode if you want to show user info
-            const user = jwtDecode(token);
-            console.log("Google user: ", user);
-
-            // Send token to backend
-            const apiRes = await axios.post("http://localhost:5000/api/auth/google-signup", {
-                token: token,
+            // schema body
+            //             {
+            const { username, password, email } = formData;
+            const response = await axios.post("http://odoo.phpx.live/api/auth/signup", {
+                username,
+                password,
+                email,
+                type: false,
+                googlelogin: false,
+                profile_path: ""
             });
 
-            // Store JWT and user data from backend
-            localStorage.setItem("token", apiRes.data.token);
-            localStorage.setItem("user", JSON.stringify(apiRes.data.user));
-
-            console.log("Signup/Login success ✅");
-        } catch (err) {
-            console.error("Google signup error ❌", err);
+            setMsg("Signup successful!" + response.data.message);
+            navigate("/login");
+            console.log("Signup success ✅");
+        } catch (error) {
+            setMsg("Signup failed! ");
+            console.error("Signup error ❌", error);
         }
-    };
+    }
+
+
+    // const handleGoogleLogin = async (res) => {
+    //     try {
+    //         const token = res.credential;
+
+    //         // (Optional) decode if you want to show user info
+    //         const user = jwtDecode(token);
+    //         console.log("Google user: ", user);
+
+    //         // Send token to backend
+    //         const apiRes = await axios.post("http://localhost:5000/api/auth/google-signup", {
+    //             token: token,
+    //         });
+
+    //         // Store JWT and user data from backend
+    //         localStorage.setItem("token", apiRes.data.token);
+    //         localStorage.setItem("user", JSON.stringify(apiRes.data.user));
+
+    //         console.log("Signup/Login success ✅");
+    //     } catch (err) {
+    //         console.error("Google signup error ❌", err);
+    //     }
+    // };
 
     return (
 
@@ -42,25 +96,40 @@ const Signup = () => {
                         </h1>
                         <form className="space-y-4 md:space-y-6" action="#">
                             <div>
+                                <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Username
+                                </label>
+                                <input
+                                    onChange={handleChange}
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    placeholder="Your username"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                    required
+                                />
+                            </div>
+
+                            <div>
                                 <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                                <input onChange={handleChange} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
                             </div>
                             <div>
                                 <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                <input onChange={handleChange} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                             </div>
                             <div>
                                 <label for="confirm-password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                                <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                                <input onChange={handleChange} type="confirm-password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                             </div>
 
 
-                            <GoogleLogin
+                            {/* <GoogleLogin
                                 onSuccess={handleGoogleLogin}
                                 onError={() => {
                                     console.log("Login Failed");
                                 }}
-                            />
+                            /> */}
 
                             {/* <div className="flex items-start">
                                 <div className="flex items-center h-5">
@@ -70,12 +139,15 @@ const Signup = () => {
                                     <label for="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
                                 </div>
                             </div> */}
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
+                            <button onClick={handleSubmit} type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already have an account?
                                 <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500"> Login here</Link>
                             </p>
                         </form>
+                        {Msg && (
+                            <p className=" text-sm mt-2">{Msg}</p>
+                        )}
                     </div>
                 </div>
             </div>
