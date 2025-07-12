@@ -5,8 +5,6 @@ from sqlalchemy.orm import declarative_base,relationship
 import uuid
 from datetime import datetime
 
-Base = declarative_base()
-
 ques_tag = Table(
     "ques_tag",
     Base.metadata,

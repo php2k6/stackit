@@ -33,8 +33,7 @@ instance/
 settings.json
 
 # -------- Alembic --------
-alembic.ini     # optional: keep if using env.py for settings
-alembic/versions/*.pyc
+
 
 # -------- Logs / Cache --------
 *.log
