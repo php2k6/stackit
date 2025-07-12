@@ -23,7 +23,7 @@ const PostDetail = () => {
         "http://odoo.phpx.live/api/answer",
         {
           qid: post.id,
-          content: editorValue,
+          content: editorValue.toString(),
           image_path: ""
         },
         {
@@ -127,6 +127,7 @@ const PostDetail = () => {
               key={index}
               content={answer.content}
               votes={answer.votes}
+              answerId={answer.aid}
             />
           ))}
       </section>

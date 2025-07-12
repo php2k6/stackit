@@ -4,7 +4,7 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Votes from "./Votes";
 import axios from "axios";
 import { useEffect } from "react";
-const AnswerCard = ({ content, votes,username }) => {
+const AnswerCard = ({ answerId,content, votes,username }) => {
     const [vote, setVote] = useState(votes || 0);
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [commentText, setCommentText] = useState("");
@@ -30,6 +30,26 @@ const AnswerCard = ({ content, votes,username }) => {
         };
         fetchComments();
     }, [answerId]);
+    // post comment to the server
+    const postComment = async (answerId, commentText) => {
+        const token = localStorage.getItem("token");
+        try {
+            await axios.post(
+                `http://odoo.phpx.live/api/comments/${answerId}`,
+                { message: commentText },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setComments((prev) => [...prev, { username, message: commentText }]);
+            setCommentText("");
+            setShowCommentBox(false);
+        } catch (error) {
+            console.error("Error posting comment:", error);
+        }
+    }
 
     return (
         <div className="flex gap-4 bg-white border p-4 rounded-lg shadow-sm">
@@ -79,7 +99,7 @@ const AnswerCard = ({ content, votes,username }) => {
                             </div>
                         </div>
                     ) : (
-                        <Button size="xs" onClick={() => setShowCommentBox(true)}>
+                        <Button size="xs" onClick={() => {setShowCommentBox(true),postComment(answerId, commentText)}}>
                             Add Comment
                         </Button>
                     )}

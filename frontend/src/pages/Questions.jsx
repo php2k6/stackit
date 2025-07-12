@@ -21,6 +21,14 @@ const Questions = () => {
     useEffect(() => {
         fetchQuestions();
     }, []);
+    useEffect(() => {
+        if (search) {
+            searchQuestions(search);
+        } else {
+            fetchQuestions();   
+    }
+    }, [search]);
+
 
     const fetchQuestions = async () => {
         try {
@@ -37,6 +45,35 @@ const Questions = () => {
     };
 
     
+    const [isSearched, setIsSearched] = useState(false);
+    // search the questions based on title by just fetching from server passing in api/questions
+    const searchQuestions = async (searchTerm) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.get(`http://odoo.phpx.live/api/question/?search=${searchTerm}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setQuestions(response.data);
+            setIsSearched(true);
+            console.log("Searched questions:", response.data);
+            
+            // fetchQuestions();
+        } catch (error) {
+            console.error("Error searching questions:", error);
+        }
+    };
+    // same for filter
+    const filterQuestions = (tag) => {
+        if (tag === "All") {
+            fetchQuestions();
+        } else {
+            const filtered = questions.filter(q => q.tags.includes(tag));
+            setQuestions(filtered);
+        }
+    };
+
     // const [cards, setcards] = useState()
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 2;
@@ -64,6 +101,9 @@ const Questions = () => {
                     }}
                     className="w-full md:w-1/2"
                 />
+                <Button onClick={() => searchQuestions(search)} className="w-full md:w-auto">
+                    Search
+                </Button>
                 {/*  */}
                 <Select value={sort} onChange={(e) => {
                     setSort(e.target.value);
@@ -76,6 +116,7 @@ const Questions = () => {
             <section>
                 <h2 className='text-2xl font-bold my-2'>Latest Questions</h2>
                 <div className="flex flex-col gap-4">
+
                     {paginatedPosts.map((q) => (
                         <PostCard
                             key={q.qid}
