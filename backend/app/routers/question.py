@@ -1,5 +1,7 @@
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, HTTPException, Depends, status, Query
 from sqlalchemy.orm import Session
+from sqlalchemy import desc, and_
+from datetime import datetime, timedelta
 from app.auth import get_current_user, get_admin_user
 from app.models import Users, Question, Answer
 from app.database import get_db
@@ -12,7 +14,7 @@ from app.schemas.question_schemas import (
     AnswerInQuestion
 )
 from uuid import UUID
-from typing import List
+from typing import List, Optional
 
 router = APIRouter(
     prefix="/question",
@@ -128,28 +130,71 @@ def delete_question(
 @router.get("/", response_model=List[QuestionResponse])
 def get_questions(
     db: Session = Depends(get_db),
-    skip: int = 0,
-    limit: int = 10,
-    search: str = None,
-    tags: str = None
+    page: int = Query(default=1, ge=1, description="Page number"),
+    per_page: int = Query(default=10, ge=1, le=50, description="Items per page"),
+    search: Optional[str] = Query(default=None, description="Search in title, description, or tags"),
+    tags: Optional[str] = Query(default=None, description="Filter by tags"),
+    sort: str = Query(default="latest", description="Sort by: trending, latest, most_popular"),
+    username: Optional[str] = Query(default=None, description="Filter by username")
 ):
-    """Get all questions with optional search and filtering."""
+    """Get all questions with optional search, filtering, and sorting."""
     
+    # Calculate offset for pagination
+    offset = (page - 1) * per_page
+    
+    # Base query
     query = db.query(Question)
     
-    # Apply search filter
+    # Apply search filter (search in title, description, and tags)
     if search:
         query = query.filter(
             Question.title.ilike(f"%{search}%") | 
-            Question.desc.ilike(f"%{search}%")
+            Question.desc.ilike(f"%{search}%") |
+            Question.tags.ilike(f"%{search}%")
         )
     
     # Apply tags filter
     if tags:
         query = query.filter(Question.tags.ilike(f"%{tags}%"))
     
-    # Order by created_at descending (newest first)
-    questions = query.order_by(Question.created_at.desc()).offset(skip).limit(limit).all()
+    # Apply username filter
+    if username:
+        query = query.filter(Question.username.ilike(f"%{username}%"))
+    
+    # Apply sorting based on sort parameter
+    if sort == "trending":
+        # Get current time minus 24 hours
+        twenty_four_hours_ago = datetime.utcnow() - timedelta(hours=24)
+        
+        # First get questions from last 24 hours sorted by votes
+        trending_questions = query.filter(
+            Question.created_at >= twenty_four_hours_ago
+        ).order_by(desc(Question.votes), desc(Question.created_at)).offset(offset).limit(per_page).all()
+        
+        # If we don't have enough trending questions, fill with latest
+        if len(trending_questions) < per_page:
+            remaining_limit = per_page - len(trending_questions)
+            trending_qids = [q.qid for q in trending_questions]
+            
+            older_questions = query.filter(
+                and_(
+                    Question.created_at < twenty_four_hours_ago,
+                    ~Question.qid.in_(trending_qids) if trending_qids else True
+                )
+            ).order_by(desc(Question.created_at)).limit(remaining_limit).all()
+            
+            questions = trending_questions + older_questions
+        else:
+            questions = trending_questions
+            
+    elif sort == "latest":
+        questions = query.order_by(desc(Question.created_at)).offset(offset).limit(per_page).all()
+        
+    elif sort == "most_popular":
+        questions = query.order_by(desc(Question.votes), desc(Question.created_at)).offset(offset).limit(per_page).all()
+        
+    else:
+        raise HTTPException(status_code=400, detail="Invalid sort parameter. Use: trending, latest, or most_popular")
     
     return [
         QuestionResponse(

@@ -15,7 +15,7 @@ load_dotenv()
 # JWT Configuration
 SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 500
 REFRESH_TOKEN_EXPIRE_DAYS = 7
 
 # Password hashing

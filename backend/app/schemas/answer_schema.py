@@ -1,23 +1,22 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 from uuid import UUID
 from datetime import datetime
 
 class AnswerCreate(BaseModel):
-    qid: UUID
-    content: str
-    image_path: Optional[str] = None
+    qid: UUID = Field(..., description="Question ID")
+    content: str = Field(..., min_length=1, max_length=5000, description="Answer content")
+    image_path: Optional[str] = Field(None, max_length=500, description="Image file path")
 
 class AnswerUpdate(BaseModel):
-    content: Optional[str] = None
-    accepted: Optional[bool] = None
-    image_path: Optional[str] = None
+    content: Optional[str] = Field(None, min_length=1, max_length=5000)
+    image_path: Optional[str] = Field(None, max_length=500)
 
 class AnswerResponse(BaseModel):
     aid: UUID
     qid: UUID
     userid: UUID
-    username: str  # From user join
+    username: str
     content: str
     accepted: bool
     votes: int
@@ -27,11 +26,11 @@ class AnswerResponse(BaseModel):
     class Config:
         from_attributes = True
 
-class AnswerAccept(BaseModel):
-    accepted: bool
+class AnswerCreateResponse(BaseModel):
+    aid: UUID
 
-class AnswerVote(BaseModel):
-    vote_type: str  # "up" or "down"
+class AnswerAccept(BaseModel):
+    accepted: bool = True
 
 class AnswerList(BaseModel):
     answers: list[AnswerResponse]
