@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from uuid import UUID
 router = APIRouter(
     prefix="/comment",
-    tags=["Users"],
+    tags=["Comment"],
     responses={404: {"description": "Not found"}}
 )
 

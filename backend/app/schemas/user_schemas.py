@@ -7,7 +7,7 @@ class UserCreate(BaseModel):
     username: str
     password: str
     email: EmailStr
-    type: Optional[bool] = False  # Default to regular user
+    type: Optional[bool] = False
     googlelogin: Optional[bool] = False
     profile_path: Optional[str] = None
 
@@ -25,7 +25,7 @@ class UserResponse(BaseModel):
     profile_path: Optional[str] = None
     
     class Config:
-        from_attributes = True  # For SQLAlchemy models compatibility
+        from_attributes = True
 
 class UserUpdate(BaseModel):
     username: Optional[str] = None
@@ -38,7 +38,7 @@ class UserProfileResponse(BaseModel):
     username: str
     profile_path: Optional[str]
     joined_since: datetime
-    type: bool
+    type: str
     questions: List[List[str]]  # [[qid, title], ...]
     answers: List[List[str]]    # [[aid, title], ...]
     comments: List[List[str]]   # [[cid, title], ...]
@@ -49,16 +49,15 @@ class UserPublicResponse(BaseModel):
     username: str
     profile_path: Optional[str]
     joined_since: datetime
-    type: bool
+    type: str
     questions: List[List[str]]  # [[qid, title], ...]
-    answers: List[List[str]]    # [[aid, title], ...]
 
 # New schema for admin users list
 class UserListItem(BaseModel):
     id: str
     username: str
     email: str
-    type: bool
+    type: str
     joined_since: datetime
     googlelogin: bool
 
