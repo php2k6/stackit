@@ -14,12 +14,15 @@ export default function Home() {
             </section>
             <section>
                 <h2 className='text-2xl font-bold my-2'>Latest Questions</h2>
-                <PostCard
-                    title="How to use useEffect with async function in React?"
-                    tags={["react", "hooks", "javascript"]}
-                    desc="I'm trying to fetch data inside useEffect but getting unexpected behavior. How should I handle async calls?"
-                    totalAns={5}
-                />
+                <div className="flex flex-col gap-4">
+                    <PostCard
+                        id={1}
+                        title="How to use useEffect with async function in React?"
+                        tags={["react", "hooks", "javascript"]}
+                        desc="I'm trying to fetch data inside useEffect but getting unexpected behavior. How should I handle async calls?"
+                        totalAns={5}
+                    />
+                </div>
             </section>
 
         </>

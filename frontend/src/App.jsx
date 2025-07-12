@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Signup from './pages/signup'
+import PostDetail from './pages/PostDetail'
 import { Routes, Route } from 'react-router-dom';
 import { Footer } from 'flowbite-react'
 import Login from './pages/Login'
@@ -23,6 +24,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        {/* dynamic routing when clicked on individual posts */}
+        <Route path="/post/:id" element={<PostDetail />} />
       </Routes>
       <section >
         <Footer className="bg-gray-800 text-white py-4 rounded-none mt-0">
