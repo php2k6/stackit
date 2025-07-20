@@ -1,0 +1,110 @@
+/* Dark mode overrides for components */
+
+/* Rich Text Editor Dark Mode Styles */
+.dark .ql-toolbar {
+  border-color: #374151 !important;
+  background-color: #374151 !important;
+}
+
+.dark .ql-toolbar .ql-stroke {
+  stroke: #d1d5db !important;
+}
+
+.dark .ql-toolbar .ql-fill {
+  fill: #d1d5db !important;
+}
+
+.dark .ql-toolbar button:hover .ql-stroke,
+.dark .ql-toolbar button:focus .ql-stroke,
+.dark .ql-toolbar button.ql-active .ql-stroke {
+  stroke: #3b82f6 !important;
+}
+
+.dark .ql-toolbar button:hover .ql-fill,
+.dark .ql-toolbar button:focus .ql-fill,
+.dark .ql-toolbar button.ql-active .ql-fill {
+  fill: #3b82f6 !important;
+}
+
+.dark .ql-container {
+  border-color: #374151 !important;
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+.dark .ql-editor {
+  color: #f9fafb !important;
+}
+
+.dark .ql-editor.ql-blank::before {
+  color: #9ca3af !important;
+}
+
+.dark .ql-snow .ql-picker {
+  color: #d1d5db !important;
+}
+
+.dark .ql-snow .ql-picker-options {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+}
+
+.dark .ql-snow .ql-picker-item:hover {
+  background-color: #4b5563 !important;
+}
+
+.dark .ql-snow .ql-tooltip {
+  background-color: #374151 !important;
+  border-color: #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+.dark .ql-snow .ql-tooltip input[type=text] {
+  background-color: #1f2937 !important;
+  border-color: #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+/* Flowbite Card dark mode force override */
+.dark .flowbite-card {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+/* Force dark background for main containers */
+.dark-bg-override {
+  background-color: #111827 !important;
+}
+
+/* Prose dark mode improvements */
+.dark .prose-invert {
+  color: #f9fafb !important;
+}
+
+.dark .prose-invert h1,
+.dark .prose-invert h2,
+.dark .prose-invert h3,
+.dark .prose-invert h4,
+.dark .prose-invert h5,
+.dark .prose-invert h6 {
+  color: #f9fafb !important;
+}
+
+.dark .prose-invert p {
+  color: #d1d5db !important;
+}
+
+.dark .prose-invert blockquote {
+  color: #9ca3af !important;
+  border-left-color: #4b5563 !important;
+}
+
+.dark .prose-invert code {
+  background-color: #374151 !important;
+  color: #f9fafb !important;
+}
+
+.dark .prose-invert pre {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+}

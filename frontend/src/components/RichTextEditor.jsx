@@ -15,14 +15,17 @@ const RichTextEditor = ({ value, setValue }) => {
   };
 
   return (
-    <div className="bg-white border rounded p-2">
+    <div className="bg-white dark:bg-gray-800 border dark:border-gray-600 rounded-lg overflow-hidden">
       <ReactQuill
         value={value}
         onChange={setValue}
         modules={modules}
         theme="snow"
         placeholder="Write your answer here..."
-      
+        className="dark:text-white"
+        style={{
+          backgroundColor: 'transparent'
+        }}
       />
     </div>
   );
