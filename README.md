@@ -10,6 +10,8 @@
 
 StackIt is a comprehensive question-and-answer platform that brings together developers, learners, and experts in a collaborative environment. Built with modern web technologies, it offers a seamless experience for knowledge sharing with robust features including real-time notifications, advanced voting systems, and comprehensive admin controls.
 
+> **Note**: This is a refined and enhanced version of the original prototype developed during a hackathon, now featuring production-ready code, comprehensive documentation, and additional features.
+
 ## 🛠️ Tech Stack
 
 ### **Frontend**
@@ -275,7 +277,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 <div align="center">
 
-**Built with ❤️ for the developer community**
+**Built with ❤️**
 
 [🌟 Star this repo](https://github.com/php2k6/stackit) • [🐛 Report Bug](https://github.com/php2k6/stackit/issues) • [💡 Request Feature](https://github.com/php2k6/stackit/issues)
 
