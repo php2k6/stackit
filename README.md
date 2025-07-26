@@ -293,15 +293,11 @@ Our PostgreSQL database follows a normalized relational design optimized for per
 
 We welcome contributions! This project demonstrates modern development practices and is open for community improvements.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ---
 
 <div align="center">
 
-**Built with ❤️ for the developer community**
+**Built with ❤️**
 
 [🌟 Star this repo](https://github.com/php2k6/stackit) • [🐛 Report Bug](https://github.com/php2k6/stackit/issues) • [💡 Request Feature](https://github.com/php2k6/stackit/issues)
 
