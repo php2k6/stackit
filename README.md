@@ -10,50 +10,6 @@
 
 StackIt is a comprehensive question-and-answer platform that brings together developers, learners, and experts in a collaborative environment. Built with modern web technologies, it offers a seamless experience for knowledge sharing with robust features including real-time notifications, advanced voting systems, and comprehensive admin controls.
 
-## ✨ Key Features
-
-### 🔐 **Robust Authentication System**
-- **Multiple Auth Methods**: Traditional email/password and Google OAuth integration
-- **JWT Security**: Stateless authentication with secure token management
-- **Role-Based Access**: Admin and regular user permissions with protected routes
-- **Profile Management**: Customizable user profiles with avatar support
-
-### 💬 **Comprehensive Q&A Platform**
-- **Rich Text Questions**: Full-featured editor for detailed question formatting
-- **Smart Tagging**: Flexible tag system for content organization and discovery
-- **Image Support**: Upload and embed images in questions and answers
-- **Question Management**: Edit, close, and delete questions with proper authorization
-
-### 🗳️ **Advanced Voting Mechanism**
-- **Dual Voting**: Separate upvote/downvote system for questions and answers
-- **Vote Tracking**: Real-time vote counts with user vote history
-- **Vote Removal**: Users can change or remove their votes
-- **Answer Acceptance**: Question authors can mark the best answer
-
-### 🔔 **Real-time Notification System**
-- **Activity Alerts**: Instant notifications for votes, comments, and answers
-- **Smart Filtering**: Filter notifications by type and read status
-- **Bulk Operations**: Mark all notifications as read with one click
-- **Notification Stats**: Track total, read, and unread notification counts
-
-### 🎨 **Modern Responsive Interface**
-- **Dark/Light Themes**: Complete dark mode implementation with smooth transitions
-- **Mobile-First Design**: Optimized experience across all device sizes
-- **Flowbite Components**: Professional UI components with consistent styling
-- **Accessibility**: ARIA labels and keyboard navigation support
-
-### 👨‍💼 **Powerful Admin Dashboard**
-- **User Management**: View all users with admin/regular user distinction
-- **Content Moderation**: Admin controls for deleting users and content
-- **System Analytics**: Platform statistics and trending content insights
-- **Role Management**: Boolean-based admin status system
-
-### 💭 **Interactive Comment System**
-- **Answer Comments**: Threaded discussions on individual answers
-- **Comment Management**: Edit and delete comments with proper permissions
-- **Author Attribution**: Clear username and timestamp display
-- **Comment Statistics**: Track engagement levels on answers
-
 ## 🛠️ Tech Stack
 
 ### **Frontend**
@@ -207,74 +163,6 @@ app/
 └── main.py           # FastAPI application entry
 ```
 
-## 🎯 Core Features Breakdown
-
-### **🗳️ Smart Voting System**
-Our voting system uses a boolean-based approach where users can upvote (`is_upvote: true`) or downvote (`is_upvote: false`) content. The polymorphic design allows voting on both questions and answers through a single votes table, with `is_answer` flag determining the target type.
-
-### **📝 Content Management**
-- **UUID-based IDs**: All entities use UUID primary keys for distributed scalability
-- **Rich Content**: Questions and answers support markdown formatting and image uploads
-- **Tag System**: Simple comma-separated tags for flexible categorization
-- **Content Ownership**: Clear author attribution with edit/delete permissions
-
-### **🔍 Advanced Search & Discovery**
-- **Multi-field Search**: Search across question titles, descriptions, and tags
-- **Smart Sorting**: Three sorting modes - trending (24h activity), latest, and most popular
-- **Tag Filtering**: Filter content by specific tags with pagination support
-- **Homepage Algorithm**: Trending content prioritizes recent questions with high engagement
-
-### **🔔 Notification Engine**
-Our notification system uses integer types (1, 2, 3) to categorize different notification types:
-- **Type-based Filtering**: Filter notifications by specific interaction types
-- **Read Status Tracking**: Boolean flag for efficient unread notification queries
-- **Bulk Operations**: Mark all notifications as read in single API call
-- **Statistics Dashboard**: Real-time counts of total, read, and unread notifications
-
-### **👤 User Experience Features**
-- **Profile Analytics**: Detailed user profiles showing questions, answers, comments, and upvotes
-- **Public Profiles**: View other users' public contributions and activity
-- **Admin Controls**: Boolean `type` field determines admin privileges
-- **Google Integration**: OAuth support alongside traditional authentication
-
-## 🔧 Development Highlights
-
-### **Performance Optimizations**
-- **Lazy Loading**: Components load on demand
-- **Database Indexing**: Optimized query performance
-- **Caching Strategies**: Redis integration for session management
-- **Image Optimization**: Compressed assets and lazy loading
-
-### **Security Features**
-- **SQL Injection Protection**: Parameterized queries
-- **XSS Prevention**: Input sanitization and validation
-- **CSRF Protection**: Token-based request validation
-- **Rate Limiting**: API endpoint protection
-
-### **Code Quality**
-- **TypeScript Support**: Type-safe frontend development
-- **API Documentation**: Auto-generated OpenAPI/Swagger docs
-- **Error Handling**: Comprehensive error management
-- **Logging System**: Structured logging for debugging
-
-## 🎨 UI/UX Features
-
-### **Responsive Design**
-- **Mobile-First**: Optimized for mobile devices
-- **Tablet Support**: Perfect medium-screen experience
-- **Desktop Enhanced**: Full-featured desktop interface
-
-### **Accessibility**
-- **ARIA Labels**: Screen reader compatibility
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Color Contrast**: WCAG compliant color schemes
-- **Focus Management**: Proper focus handling
-
-### **Dark Mode Implementation**
-- **System Preference**: Respects user's system theme
-- **Manual Toggle**: Easy theme switching
-- **Persistent Choice**: Remembers user preference
-- **Smooth Transitions**: Animated theme changes
 
 ## 📊 Database Schema
 
@@ -358,12 +246,6 @@ Our PostgreSQL database follows a normalized relational design optimized for per
 - **Polymorphic Voting**: Votes can target either questions or answers via `is_answer` flag
 - **User Activity Tracking**: All content linked to user via `userid` foreign keys
 
-### **🚀 Performance Optimizations**
-- **UUID Primary Keys**: Distributed-friendly unique identifiers
-- **Indexed Foreign Keys**: Fast relationship lookups
-- **Denormalized Username**: Reduces JOIN operations for display
-- **Vote Aggregation**: Cached vote counts on questions/answers
-- **Timestamp Indexing**: Efficient chronological queries
 
 ## 🚀 Performance Metrics
 
