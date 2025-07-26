@@ -10,6 +10,32 @@ StackIt is a comprehensive question-and-answer platform that brings together dev
 
 > **Note**: This is a refined and enhanced version of the original prototype developed during a hackathon, now featuring better code, comprehensive documentation, and additional features.
 
+## 📸 Screenshots
+
+### 🏠 **Homepage - Question Feed**
+<div align="center">
+  <img src="images/home_page.png" alt="StackIt Homepage" width="800"/>
+  <p><em>Modern homepage with trending questions, dark mode support, and responsive design</em></p>
+</div>
+
+### ❓ **Question Detail Page**
+<div align="center">
+  <img src="images/question_page.png" alt="Question Detail Page" width="800"/>
+  <p><em>Detailed question view with answers, voting system, and comment functionality</em></p>
+</div>
+
+### ✍️ **Ask Question Interface**
+<div align="center">
+  <img src="images/ask_question.png" alt="Ask Question Page" width="800"/>
+  <p><em>Rich text editor for creating questions with tag support and image uploads</em></p>
+</div>
+
+### 👤 **Profile & Notifications**
+<div align="center">
+  <img src="images/profile_notification.png" alt="Profile and Notifications" width="800"/>
+  <p><em>User profile dashboard with real-time notifications and activity tracking</em></p>
+</div>
+
 ## 🛠️ Tech Stack
 
 ### **Frontend**
