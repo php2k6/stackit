@@ -277,10 +277,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 <div align="center">
 
-**Built with ❤️**
+**Built with ❤️ for the developer community**
 
 [🌟 Star this repo](https://github.com/php2k6/stackit) • [🐛 Report Bug](https://github.com/php2k6/stackit/issues) • [💡 Request Feature](https://github.com/php2k6/stackit/issues)
 
-Made by [php2k6](https://github.com/php2k6)
+**Team:**
+- [Prabhav Patel](https://github.com/php2k6) - Leader
+- [Hitansh Thakur](https://github.com/thakurhitansh4325) - Member
+- [Kathan Majithia](https://github.com/kathanmajithia) - Member
 
 </div>
