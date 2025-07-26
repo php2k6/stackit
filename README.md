@@ -277,7 +277,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Built with ❤️ for the developer community**
 
-[🌟 Star this repo](https://github.com/php2k6/stackit-odoo) • [🐛 Report Bug](https://github.com/php2k6/stackit-odoo/issues) • [💡 Request Feature](https://github.com/php2k6/stackit-odoo/issues)
+[🌟 Star this repo](https://github.com/php2k6/stackit) • [🐛 Report Bug](https://github.com/php2k6/stackit/issues) • [💡 Request Feature](https://github.com/php2k6/stackit/issues)
 
 Made by [php2k6](https://github.com/php2k6)
 
