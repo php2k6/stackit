@@ -280,8 +280,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 [🌟 Star this repo](https://github.com/php2k6/stackit) • [🐛 Report Bug](https://github.com/php2k6/stackit/issues) • [💡 Request Feature](https://github.com/php2k6/stackit/issues)
 
 **Team:**
-[Prabhav Patel](https://github.com/php2k6) [Leader]
-[Hitansh Thakur](https://github.com/thakurhitansh4325)
+[Prabhav Patel](https://github.com/php2k6) [Leader] | 
+[Hitansh Thakur](https://github.com/thakurhitansh4325) | 
 [Kathan Majithia](https://github.com/kathanmajithia)
 
 </div>
