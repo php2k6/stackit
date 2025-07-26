@@ -4,13 +4,11 @@
 
 ![StackIt Banner](https://img.shields.io/badge/StackIt-Q&A%20Platform-blue?style=for-the-badge&logo=stackoverflow)
 
-**Developer**: Prabhav Patel - prabhavptl2000@gmail.com
-
 ## 🌟 Overview
 
 StackIt is a comprehensive question-and-answer platform that brings together developers, learners, and experts in a collaborative environment. Built with modern web technologies, it offers a seamless experience for knowledge sharing with robust features including real-time notifications, advanced voting systems, and comprehensive admin controls.
 
-> **Note**: This is a refined and enhanced version of the original prototype developed during a hackathon, now featuring production-ready code, comprehensive documentation, and additional features.
+> **Note**: This is a refined and enhanced version of the original prototype developed during a hackathon, now featuring better code, comprehensive documentation, and additional features.
 
 ## 🛠️ Tech Stack
 
@@ -283,7 +281,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Team:**
 [Prabhav Patel](https://github.com/php2k6) - Leader
-[Hitansh Thakur](https://github.com/thakurhitansh4325) - Member
- [Kathan Majithia](https://github.com/kathanmajithia) - Member
+[Hitansh Thakur](https://github.com/thakurhitansh4325)
+[Kathan Majithia](https://github.com/kathanmajithia)
 
 </div>
